@@ -1,0 +1,8 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    phpVersion: 80500
+    level: 8
+    paths:
+        - src

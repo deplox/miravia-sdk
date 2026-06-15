@@ -1,0 +1,15 @@
+* text=auto eol=lf
+
+# Export-ignore: these paths are stripped from `composer install` dist downloads.
+# Consumers receive only src/, LICENSE, README.md, CHANGELOG.md, and composer.json.
+
+/.claude            export-ignore
+/.github            export-ignore
+/graphify-out       export-ignore
+/tests              export-ignore
+CLAUDE.md           export-ignore
+phpstan.neon        export-ignore
+phpunit.xml         export-ignore
+vendor/* linguist-vendored
+node_modules/* linguist-vendored
+*.blade.php linguist-language=PHP
