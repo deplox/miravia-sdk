@@ -8,6 +8,7 @@ use Deplox\MiraviaSdk\Enums\SellerStatus;
 use Deplox\MiraviaSdk\Support\ApiValueParser;
 use Illuminate\Contracts\Support\Arrayable;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class Seller implements Arrayable
 {
     /**
@@ -30,6 +31,7 @@ final readonly class Seller implements Arrayable
         public array $m2aSellCountries,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         return new self(

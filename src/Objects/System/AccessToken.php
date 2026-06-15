@@ -9,6 +9,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Date;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class AccessToken implements Arrayable
 {
     public function __construct(
@@ -20,6 +21,7 @@ final readonly class AccessToken implements Arrayable
         public CarbonInterface $refreshTokenExpiresAt,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromSetting(array $data): self
     {
         return new self(
@@ -32,6 +34,7 @@ final readonly class AccessToken implements Arrayable
         );
     }
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         return new self(

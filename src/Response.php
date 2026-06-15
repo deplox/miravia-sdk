@@ -27,6 +27,7 @@ class Response extends SaloonResponse implements Responsable
     }
 
     /**
+     * @param  array<int, int|string>  $except
      * @return array<string,mixed>
      */
     public function meta(bool $failed, array $except = []): array

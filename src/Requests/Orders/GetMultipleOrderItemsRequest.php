@@ -16,6 +16,7 @@ final class GetMultipleOrderItemsRequest extends Request
 {
     protected Method $method = Method::GET;
 
+    /** @param array<int, mixed> $ids */
     public function __construct(
         protected array $ids,
     ) {

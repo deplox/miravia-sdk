@@ -7,6 +7,7 @@ namespace Deplox\MiraviaSdk\Objects\Fulfillment;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class ShipmentProvider implements Arrayable
 {
     /**
@@ -18,6 +19,7 @@ final readonly class ShipmentProvider implements Arrayable
         public Collection $carriers,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         $carriers = new Collection;

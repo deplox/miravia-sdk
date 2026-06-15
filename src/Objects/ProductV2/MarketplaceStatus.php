@@ -10,6 +10,7 @@ use Deplox\MiraviaSdk\Enums\ProductStatus;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class MarketplaceStatus implements Arrayable
 {
     public function __construct(
@@ -19,6 +20,7 @@ final readonly class MarketplaceStatus implements Arrayable
         public string $subStatus,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         $marketplace = Marketplace::fromApiValue(Str::before($data['platform'] ?? '', '_'));

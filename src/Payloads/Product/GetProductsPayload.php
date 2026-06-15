@@ -11,6 +11,10 @@ use Illuminate\Validation\Rule;
 
 final class GetProductsPayload
 {
+    /**
+     * @param  ?array<int, mixed>  $ids
+     * @param  ?array<int, mixed>  $skus
+     */
     public function __construct(
         public ?array $ids = null,
         public ?array $skus = null,
@@ -23,6 +27,7 @@ final class GetProductsPayload
         $this->skus = is_array($skus) ? array_values($skus) : null;
     }
 
+    /** @param array<string, mixed> $data */
     public static function fromArray(array $data): self
     {
         $rules = [
@@ -48,9 +53,17 @@ final class GetProductsPayload
             $attributes[$key] = $value;
         }
 
-        return new self(...array_values($attributes));
+        return new self(
+            ids: $attributes['ids'],
+            skus: $attributes['skus'],
+            marketplace: $attributes['marketplace'],
+            status: $attributes['status'],
+            offset: $attributes['offset'],
+            limit: $attributes['limit'],
+        );
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         return get_object_vars($this);

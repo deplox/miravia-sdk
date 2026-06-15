@@ -9,6 +9,7 @@ use Deplox\MiraviaSdk\Enums\ReversalRequestType;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class Reversal implements Arrayable
 {
     /**
@@ -24,6 +25,7 @@ final readonly class Reversal implements Arrayable
         public Collection $lines,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         $data = array_filter($data, fn (mixed $value): bool => isset($value) && $value !== '');

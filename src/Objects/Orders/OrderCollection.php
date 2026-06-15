@@ -8,16 +8,18 @@ use Deplox\MiraviaSdk\Objects\Orders\Order;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class OrderCollection implements Arrayable
 {
     /**
-     * @param  Collection<Order>  $items
+     * @param  Collection<int, Order>  $items
      */
     public function __construct(
         public int $total = 0,
         public Collection $items = new Collection,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         return new self(

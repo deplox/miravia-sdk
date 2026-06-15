@@ -11,11 +11,13 @@ use Deplox\MiraviaSdk\Support\TextSanitizer;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class ProductVariant implements Arrayable
 {
     /**
-     * @param  Collection<CountryPrice>  $prices
-     * @param  Collection<WarehouseQuantity>  $quantities
+     * @param  ?Collection<int, mixed>  $images
+     * @param  ?Collection<int, CountryPrice>  $prices
+     * @param  ?Collection<int, WarehouseQuantity>  $quantities
      */
     public function __construct(
         public string $id,
@@ -42,6 +44,7 @@ final readonly class ProductVariant implements Arrayable
         public ?Collection $quantities,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         $images = new Collection($data['sku_images'] ?? []);

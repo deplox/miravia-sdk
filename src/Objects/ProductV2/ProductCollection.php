@@ -8,10 +8,11 @@ use Deplox\MiraviaSdk\Objects\ProductV2\Product;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class ProductCollection implements Arrayable
 {
     /**
-     * @param  Collection<Product>  $items
+     * @param  Collection<int, Product>  $items
      */
     public function __construct(
         public int $count,
@@ -22,6 +23,7 @@ final readonly class ProductCollection implements Arrayable
         public int $totalPage = 0,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         return new self(

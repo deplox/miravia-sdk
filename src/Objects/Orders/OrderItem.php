@@ -13,6 +13,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Date;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class OrderItem implements Arrayable
 {
     public function __construct(
@@ -67,6 +68,7 @@ final readonly class OrderItem implements Arrayable
         public CarbonInterface $updatedAt,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         $data = array_filter($data, fn (mixed $value): bool => isset($value) && $value !== '');
@@ -92,17 +94,17 @@ final readonly class OrderItem implements Arrayable
             $data['shop_id'] ?? null,
             (bool) ($data['is_fbm'] ?? false),
             (int) ($data['quantity'] ?? 0),
-            (float) ($data['item_price'] ?? 0),
-            (float) ($data['paid_price'] ?? 0),
-            (float) ($data['tax_amount'] ?? 0),
-            (float) ($data['shipping_amount'] ?? 0),
-            (float) ($data['shipping_fee_original'] ?? 0),
-            (float) ($data['shipping_fee_discount_seller'] ?? 0),
-            (float) ($data['shipping_service_cost'] ?? 0),
-            (float) ($data['voucher_amount'] ?? 0),
-            (float) ($data['voucher_seller'] ?? 0),
-            (float) ($data['voucher_seller_lpi'] ?? 0),
-            (float) ($data['voucher_platform_lpi'] ?? 0),
+            ApiValueParser::amount($data['item_price'] ?? null),
+            ApiValueParser::amount($data['paid_price'] ?? null),
+            ApiValueParser::amount($data['tax_amount'] ?? null),
+            ApiValueParser::amount($data['shipping_amount'] ?? null),
+            ApiValueParser::amount($data['shipping_fee_original'] ?? null),
+            ApiValueParser::amount($data['shipping_fee_discount_seller'] ?? null),
+            ApiValueParser::amount($data['shipping_service_cost'] ?? null),
+            ApiValueParser::amount($data['voucher_amount'] ?? null),
+            ApiValueParser::amount($data['voucher_seller'] ?? null),
+            ApiValueParser::amount($data['voucher_seller_lpi'] ?? null),
+            ApiValueParser::amount($data['voucher_platform_lpi'] ?? null),
             $data['voucher_code'] ?? null,
             $data['tracking_code'] ?? null,
             $data['shipment_provider'] ?? null,

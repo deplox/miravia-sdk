@@ -6,6 +6,7 @@ namespace Deplox\MiraviaSdk\Objects\Fulfillment;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class Carrier implements Arrayable
 {
     public function __construct(
@@ -13,6 +14,7 @@ final readonly class Carrier implements Arrayable
         public ?string $carrierCode,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         return new self(

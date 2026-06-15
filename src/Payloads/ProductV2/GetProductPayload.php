@@ -11,6 +11,11 @@ use Illuminate\Validation\Rule;
 
 final class GetProductPayload
 {
+    /**
+     * @param  ?array<int, mixed>  $ids
+     * @param  ?array<int, mixed>  $skus
+     * @param  ?array<int, mixed>  $extraInfoFilter
+     */
     public function __construct(
         public ?array $ids = null,
         public ?array $skus = null,
@@ -30,6 +35,7 @@ final class GetProductPayload
         $this->extraInfoFilter = is_array($extraInfoFilter) ? array_values($extraInfoFilter) : null;
     }
 
+    /** @param array<string, mixed> $data */
     public static function fromArray(array $data): self
     {
         $rules = [
@@ -79,6 +85,7 @@ final class GetProductPayload
         );
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         return get_object_vars($this);

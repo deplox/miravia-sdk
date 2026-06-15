@@ -34,7 +34,7 @@ final class GetOrderItemsRequest extends Request
 
     public function createDtoFromResponse(Response $response): mixed
     {
-        return collect($response->array('data'))
+        return $response->collect('data')
             ->map(fn (array $item): OrderItem => OrderItem::fromApiResponse($item));
     }
 }

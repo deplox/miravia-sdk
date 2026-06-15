@@ -9,6 +9,7 @@ use Deplox\MiraviaSdk\Support\ApiValueParser;
 use Deplox\MiraviaSdk\Support\TextSanitizer;
 use Illuminate\Contracts\Support\Arrayable;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class Warehouse implements Arrayable
 {
     public function __construct(
@@ -20,6 +21,7 @@ final readonly class Warehouse implements Arrayable
         public string $status,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         return new self(

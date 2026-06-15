@@ -6,6 +6,7 @@ namespace Deplox\MiraviaSdk\Objects\Orders;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class Address implements Arrayable
 {
     public function __construct(
@@ -22,6 +23,7 @@ final readonly class Address implements Arrayable
         public ?string $country,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         $data = array_filter($data, fn (mixed $value): bool => isset($value) && $value !== '' && $value !== '-');

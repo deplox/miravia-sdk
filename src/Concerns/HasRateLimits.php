@@ -47,6 +47,7 @@ trait HasRateLimits
         return $this->protectedGetLimiterPrefix();
     }
 
+    /** @return array<int, Limit> */
     protected function resolveLimits(): array
     {
         return [
@@ -65,6 +66,6 @@ trait HasRateLimits
 
     protected function handleTooManyAttempts(Request $request, Limit $limit): never
     {
-        throw new RateLimitReachedException($request, $limit);
+        throw new RateLimitReachedException($limit);
     }
 }

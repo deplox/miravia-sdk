@@ -7,6 +7,7 @@ namespace Deplox\MiraviaSdk\Objects\ReturnAndRefund;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class ReversalCollection implements Arrayable
 {
     /**
@@ -19,6 +20,7 @@ final readonly class ReversalCollection implements Arrayable
         public Collection $items = new Collection,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         return new self(

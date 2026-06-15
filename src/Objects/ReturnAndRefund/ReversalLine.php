@@ -11,8 +11,13 @@ use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Date;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class ReversalLine implements Arrayable
 {
+    /**
+     * @param  ?array<int, mixed>  $actions
+     * @param  ?array<int, mixed>  $tradeOrderLineIdList
+     */
     public function __construct(
         public int $id,
         public int $reversalId,
@@ -45,6 +50,7 @@ final readonly class ReversalLine implements Arrayable
         public ?CarbonInterface $updatedAt,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data, int $reversalId): self
     {
         $data = array_filter($data, fn (mixed $value): bool => isset($value) && $value !== '');

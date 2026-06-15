@@ -8,15 +8,17 @@ use Deplox\MiraviaSdk\Enums\Country;
 use Deplox\MiraviaSdk\Enums\Currency;
 use Deplox\MiraviaSdk\Enums\Marketplace;
 use Deplox\MiraviaSdk\Enums\OrderStatus;
+use Deplox\MiraviaSdk\Support\ApiValueParser;
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class Order implements Arrayable
 {
     /**
-     * @param  Collection<string>  $statuses
+     * @param  Collection<int, string>  $statuses
      */
     public function __construct(
         public int $id,
@@ -47,6 +49,7 @@ final readonly class Order implements Arrayable
         public CarbonInterface $updatedAt,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         $data = array_filter($data, fn (mixed $value): bool => isset($value) && $value !== '');
@@ -62,12 +65,12 @@ final readonly class Order implements Arrayable
             $data['payment_method'] ?? null,
             (new Collection($data['statuses']))->map(fn (string $status): string => OrderStatus::fromApiValue($status)),
             (int) ($data['items_count'] ?? 0),
-            (float) ($data['price'] ?? 0),
-            (float) ($data['shipping_fee'] ?? 0),
-            (float) ($data['shipping_fee_original'] ?? 0),
-            (float) ($data['shipping_fee_discount_seller'] ?? 0),
-            (float) ($data['voucher'] ?? 0),
-            (float) ($data['voucher_seller'] ?? 0),
+            ApiValueParser::amount($data['price'] ?? null),
+            ApiValueParser::amount($data['shipping_fee'] ?? null),
+            ApiValueParser::amount($data['shipping_fee_original'] ?? null),
+            ApiValueParser::amount($data['shipping_fee_discount_seller'] ?? null),
+            ApiValueParser::amount($data['voucher'] ?? null),
+            ApiValueParser::amount($data['voucher_seller'] ?? null),
             $data['seller_remark_text'] ?? null,
             $data['buyer_remark_text'] ?? null,
             (bool) ($data['need_cancel_confirm'] ?? false),

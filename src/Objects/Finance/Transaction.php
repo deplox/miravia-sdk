@@ -9,6 +9,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Date;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class Transaction implements Arrayable
 {
     public function __construct(
@@ -34,6 +35,7 @@ final readonly class Transaction implements Arrayable
         public ?CarbonInterface $transactionDate,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         $feeTypeId = isset($data['fee_type']) ? (int) $data['fee_type'] : null;

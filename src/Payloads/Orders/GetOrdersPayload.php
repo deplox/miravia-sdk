@@ -31,6 +31,7 @@ final class GetOrdersPayload
         public ?int $limit = null,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromArray(array $data): self
     {
         $dateFormat = 'd-m-Y H:i:s';
@@ -72,9 +73,23 @@ final class GetOrdersPayload
             $attributes[$key] = $value;
         }
 
-        return new self(...array_values($attributes));
+        return new self(
+            createdAfter: $attributes['created_after'],
+            createdBefore: $attributes['created_before'],
+            updatedAfter: $attributes['updated_after'],
+            updatedBefore: $attributes['updated_before'],
+            buyerId: $attributes['buyer_id'],
+            countryCode: $attributes['country_code'],
+            status: $attributes['status'],
+            marketplace: $attributes['marketplace'],
+            sortBy: $attributes['sort_by'],
+            sortDirection: $attributes['sort_direction'],
+            offset: $attributes['offset'],
+            limit: $attributes['limit'],
+        );
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         return get_object_vars($this);

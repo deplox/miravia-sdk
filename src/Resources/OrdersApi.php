@@ -47,6 +47,7 @@ final class OrdersApi extends Resource
     /**
      * @see https://open.miravia.com/apps/doc/api?path=/orders/items/get
      */
+    /** @param array<int, mixed> $ids */
     public function getMultipleItems(array $ids): Response
     {
         return $this->connector->send(

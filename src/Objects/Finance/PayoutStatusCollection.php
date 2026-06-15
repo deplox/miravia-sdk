@@ -7,6 +7,7 @@ namespace Deplox\MiraviaSdk\Objects\Finance;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class PayoutStatusCollection implements Arrayable
 {
     /**
@@ -16,6 +17,7 @@ final readonly class PayoutStatusCollection implements Arrayable
         public Collection $items = new Collection,
     ) {}
 
+    /** @param array<int, array<string, mixed>> $data */
     public static function fromApiResponse(array $data): self
     {
         return new self(

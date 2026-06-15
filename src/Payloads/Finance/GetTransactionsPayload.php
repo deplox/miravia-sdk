@@ -22,6 +22,7 @@ final class GetTransactionsPayload
         public ?int $limit = null,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromArray(array $data): self
     {
         $dateFormat = 'd-m-Y';
@@ -61,6 +62,7 @@ final class GetTransactionsPayload
         );
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         return get_object_vars($this);

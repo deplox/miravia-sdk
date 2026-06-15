@@ -13,9 +13,12 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 
+/** @implements Arrayable<string, mixed> */
 final readonly class Product implements Arrayable
 {
     /**
+     * @param  ?Collection<int, mixed>  $images
+     * @param  ?Collection<int, MarketplaceStatus>  $statuses
      * @param  ?Collection<int, ProductVariant>  $variants
      */
     public function __construct(
@@ -33,6 +36,7 @@ final readonly class Product implements Arrayable
         public ?Collection $variants,
     ) {}
 
+    /** @param array<string, mixed> $data */
     public static function fromApiResponse(array $data): self
     {
         $images = new Collection($data['default_images'] ?? []);

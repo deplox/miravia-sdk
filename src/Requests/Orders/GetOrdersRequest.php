@@ -29,11 +29,11 @@ final class GetOrdersRequest extends Request
             'update_after' => $this->payload->updatedAfter?->toIso8601String(),
             'update_before' => $this->payload->updatedBefore?->toIso8601String(),
             'buyer_id' => $this->payload->buyerId,
-            'country' => strtoupper($this->payload->countryCode->value ?? ''),
+            'country' => $this->payload->countryCode !== null ? strtoupper($this->payload->countryCode->value) : '',
             'status' => $this->payload->status?->value,
             'marketplace' => $this->payload->marketplace?->apiValue(),
             'sort_by' => $this->payload->sortBy?->value,
-            'sort_direction' => strtoupper($this->payload->sortDirection->value ?? ''),
+            'sort_direction' => $this->payload->sortDirection !== null ? strtoupper($this->payload->sortDirection->value) : '',
             'offset' => $this->payload->offset,
             'limt' => $this->payload->limit, // Not a typo — the Miravia API uses 'limt' instead of 'limit'
         ]);
